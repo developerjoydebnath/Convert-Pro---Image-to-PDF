@@ -38,6 +38,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [socket, setSocket] = useState<Socket | null>(null);
 
+  console.log(socket)
+
   const logout = useCallback(async () => {
     try {
       await axios.post(`${API_URL}/auth/logout`);
