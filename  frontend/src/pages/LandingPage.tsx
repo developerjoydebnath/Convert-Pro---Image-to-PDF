@@ -124,7 +124,7 @@ export default function LandingPage() {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-purple-400 mb-6">
                 <Rocket className="w-3.5 h-3.5" />
-                Empowering your workflow with AI-driven conversion
+                No Watermark • No Limits
               </span>
               <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
                 Convert Images to Pro PDFs in <span className="text-purple-500">Seconds</span>
@@ -326,8 +326,11 @@ export default function LandingPage() {
           <p className="text-sm text-gray-500 max-w-sm mx-auto mb-8">
             Superior image to PDF conversions for modern creators and teams across the world.
           </p>
-          <p className="text-sm text-gray-600">
-            &copy; {new Date().getFullYear()} <Link to="https://stackrover-landing-v1.vercel.app" target="_blank" rel="noopener noreferrer" className="text-purple-400">StackRover Agency</Link>. All rights reserved.
+          <p className="text-sm text-gray-500">
+            A product of <Link to="https://stackrover-landing-v1.vercel.app" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition-colors">StackRover Agency</Link>
+          </p>
+          <p className="text-xs text-gray-500 mt-2">
+            &copy; {new Date().getFullYear()} ConvertPro. All rights reserved.
           </p>
         </div>
       </footer>
