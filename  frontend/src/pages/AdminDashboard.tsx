@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import type { FormEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api`;
@@ -50,6 +50,7 @@ export default function AdminDashboard() {
     password: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -143,7 +144,7 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     await logout();
-    window.location.href = '/login';
+    navigate('/login');
   };
 
   return (
@@ -288,11 +289,10 @@ export default function AdminDashboard() {
                           </button>
                           <button
                             onClick={() => handleToggleSuspend(user._id)}
-                            className={`p-2 rounded-lg transition-all ${
-                              user.isSuspended
+                            className={`p-2 rounded-lg transition-all ${user.isSuspended
                                 ? 'bg-green-500/20 hover:bg-green-500/30 text-green-400'
                                 : 'bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400'
-                            }`}
+                              }`}
                             title={user.isSuspended ? 'Activate user' : 'Suspend user'}
                           >
                             {user.isSuspended ? (

@@ -46,11 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error('Logout failed:', error);
     }
     setUser(null);
-    if (socket) {
-      socket.disconnect();
-      setSocket(null);
-    }
-  }, [socket]);
+  }, []);
 
   const checkAuth = useCallback(async () => {
     try {
@@ -74,8 +70,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Initialize socket connection when user is logged in
   useEffect(() => {
-    if (user && !socket) {
-      const newSocket = io(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}`, {
+    let newSocket: Socket | null = null;
+
+    if (user?._id) {
+      newSocket = io(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}`, {
         withCredentials: true,
       });
 
@@ -87,11 +85,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // console.log('Force logout:', data.reason);
         // Clear state first so other components react immediately
         setUser(null);
-        if (newSocket) {
-          newSocket.disconnect();
-          setSocket(null);
-        }
-        
+
         // Show notification and redirect
         setTimeout(() => {
           toast.error(`You have been logged out: ${data.reason}`);
@@ -100,15 +94,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       setSocket(newSocket);
+    } else {
+      setSocket(null);
     }
 
     return () => {
-      if (socket && !user) {
-        socket.disconnect();
-        setSocket(null);
+      if (newSocket) {
+        newSocket.disconnect();
       }
     };
-  }, [user, socket, logout]);
+  }, [user?._id]);
 
   // Check auth on mount
   useEffect(() => {
